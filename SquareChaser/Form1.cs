@@ -11,17 +11,17 @@ using System.Media;
 
 namespace SquareChaser
 {
-    public partial class Form1 : Form
+    public partial class SquareChaser : Form
     {
-        Rectangle player1 = new Rectangle(200, 230, 30, 30);
-        Rectangle player2 = new Rectangle(200, 110, 30, 30);
+        Rectangle player1 = new Rectangle(250, 120, 30, 30);
+        Rectangle player2 = new Rectangle(295, 195, 30, 30);
         Rectangle point = new Rectangle(295, 195, 10, 10);
         Rectangle boost = new Rectangle(195, 195, 10, 10);
 
         int player1Score = 0;
         int player2Score = 0;
 
-        int player1Speed = 8;
+        int player1Speed = 11;
         int player2Speed = 8;
 
         bool wDown = false;
@@ -33,12 +33,12 @@ namespace SquareChaser
         bool rightArrowDown = false;
         bool leftArrowDown = false;
 
-        SolidBrush blueBrush = new SolidBrush(Color.Blue);
-        SolidBrush greenBrush = new SolidBrush(Color.Green);
-        SolidBrush whiteBrush = new SolidBrush(Color.White);
-        SolidBrush yellowBrush = new SolidBrush(Color.Yellow);
+        SolidBrush RedBrush = new SolidBrush(Color.Red);
+        SolidBrush BlueBrush = new SolidBrush(Color.Blue);
+        SolidBrush GoldBrush = new SolidBrush(Color.Gold);
+        SolidBrush GreenBrush = new SolidBrush(Color.Green);
 
-        public Form1()
+        public SquareChaser()
         {
             InitializeComponent();
       
@@ -150,52 +150,32 @@ namespace SquareChaser
             {
                 player1Score++;
                 p1Score.Text = $"{player1Score}";
-
-                SoundPlayer player = new SoundPlayer(Properties.Resources.point);
-
-                player.Play();
-
                 Random randGen = new Random();
                 int pointX = randGen.Next(50, 400);
                 int pointY = randGen.Next(50, 400);
-                point = new Rectangle(pointX, pointY, 10, 10);
+                point = new Rectangle(pointX, pointY, 25, 25);
 
             }
             if (player2.IntersectsWith(point))
             {
                 player2Score++;
                 p2Score.Text = $"{player2Score}";
-
-                SoundPlayer player = new SoundPlayer(Properties.Resources.point);
-
-                player.Play();
-
                 Random randGen = new Random();
                 int pointX = randGen.Next(50, 400);
                 int pointY = randGen.Next(50, 400);
-                point = new Rectangle(pointX, pointY, 10, 10);
+                point = new Rectangle(pointX, pointY, 50, 50);
             }
             if (player1.IntersectsWith(boost))
             {
                 player1Speed = 10;
-
-                SoundPlayer player = new SoundPlayer(Properties.Resources.boost);
-
-                player.Play();
-
                 Random randGen = new Random();
                 int pointX = randGen.Next(50, 400);
                 int pointY = randGen.Next(50, 400);
-                boost = new Rectangle(pointX, pointY, 10, 10);
+                boost = new Rectangle(pointX, pointY, 25, 25);
             }
             if (player2.IntersectsWith(boost))
             {
-                player2Speed = 10;
-
-                SoundPlayer player = new SoundPlayer(Properties.Resources.boost);
-
-                player.Play();
-
+                player2Speed = 20;
                 Random randGen = new Random();
                 int pointX = randGen.Next(50, 400);
                 int pointY = randGen.Next(50, 400);
@@ -206,31 +186,24 @@ namespace SquareChaser
             {
                 gameTimer.Enabled = false;
                 winLabel.Visible = true;
-                winLabel.Text = "Player 1 Wins!!";
 
-                SoundPlayer player = new SoundPlayer(Properties.Resources.winner);
-
-                player.Play();
+                winLabel.Text = "Player 1 Wins!";
             }
             else if (player2Score == 5)
             {
                 gameTimer.Enabled = false;
                 winLabel.Visible = true;
-                winLabel.Text = "Player 2 Wins!!";
-
-                SoundPlayer player = new SoundPlayer(Properties.Resources.winner);
-
-                player.Play();
+                winLabel.Text = "Player 2 Wins!";
             }
             Refresh();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(blueBrush, player1);
-            e.Graphics.FillRectangle(greenBrush, player2);
-            e.Graphics.FillRectangle(whiteBrush, point);
-            e.Graphics.FillRectangle(yellowBrush, boost);
+            e.Graphics.FillRectangle(RedBrush, player1);
+            e.Graphics.FillRectangle(BlueBrush, player2);
+            e.Graphics.FillRectangle(GoldBrush, point);
+            e.Graphics.FillRectangle(GreenBrush, boost);
         }
 
 
